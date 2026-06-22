@@ -9,10 +9,12 @@
             --primary-color: #007aff;
             --success-color: #34c759;
             --bg-color: #f5f5f7;
+            --sidebar-bg: #ffffff;
             --card-bg: #ffffff;
             --text-main: #1d1d1f;
             --text-muted: #86868b;
             --border-color: #d2d2d7;
+            --hover-bg: #f0f0f5;
         }
 
         body {
@@ -20,37 +22,113 @@
             background-color: var(--bg-color);
             color: var(--text-main);
             margin: 0;
-            padding: 20px;
+            padding: 0;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
         }
 
-        header {
-            text-align: center;
-            margin-bottom: 40px;
+        /* Sidebar Styles */
+        .sidebar {
+            width: 260px;
+            background-color: var(--sidebar-bg);
+            border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            padding: 20px 0;
+            flex-shrink: 0;
         }
 
-        h1 {
-            font-size: 2.5rem;
+        .sidebar-header {
+            padding: 0 20px 20px;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 20px;
+        }
+
+        .sidebar-header h2 {
             margin: 0;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+        }
+
+        .nav-item {
+            padding: 12px 20px;
+            cursor: pointer;
+            font-weight: 500;
+            color: var(--text-main);
+            transition: background 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-item:hover {
+            background-color: var(--hover-bg);
+        }
+
+        .nav-item.active {
+            background-color: rgba(0, 122, 255, 0.1);
+            color: var(--primary-color);
+            border-right: 3px solid var(--primary-color);
+        }
+
+        .store-link {
+            margin-top: auto;
+            text-decoration: none;
+            color: var(--text-muted);
+            padding: 15px 20px;
+            font-weight: 500;
+        }
+
+        .store-link:hover {
+            color: var(--primary-color);
+        }
+
+        /* Main Content Styles */
+        .main-content {
+            flex-grow: 1;
+            padding: 40px;
+            overflow-y: auto;
+        }
+
+        .view-section {
+            display: none;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .view-section.active {
+            display: block;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            margin: 0 0 5px 0;
         }
 
         .subtitle {
             color: var(--text-muted);
-            margin-top: 5px;
+            margin: 0 0 30px 0;
         }
 
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
+        /* Card Form */
+        .card {
             background-color: var(--card-bg);
             border-radius: 16px;
             padding: 30px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
         }
 
+        .form-row {
+            display: flex;
+            gap: 20px;
+        }
+
         .form-group {
             margin-bottom: 20px;
             display: flex;
             flex-direction: column;
+            flex: 1;
         }
 
         label {
@@ -60,19 +138,18 @@
         }
 
         input[type="text"],
-        textarea,
-        input[type="file"] {
+        select,
+        textarea {
             font-family: inherit;
             font-size: 1rem;
             padding: 12px;
             border: 1px solid var(--border-color);
             border-radius: 10px;
             background-color: #fafafa;
-            transition: border-color 0.2s, box-shadow 0.2s;
+            transition: all 0.2s;
         }
 
-        input[type="text"]:focus,
-        textarea:focus {
+        input[type="text"]:focus, select:focus, textarea:focus {
             outline: none;
             border-color: var(--primary-color);
             box-shadow: 0 0 0 4px rgba(0, 122, 255, 0.1);
@@ -101,12 +178,8 @@
 
         .file-input-wrapper input[type="file"] {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            cursor: pointer;
+            top: 0; left: 0; width: 100%; height: 100%;
+            opacity: 0; cursor: pointer;
         }
 
         .submit-btn {
@@ -119,19 +192,12 @@
             font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
-            transition: background-color 0.2s, transform 0.1s;
+            transition: background-color 0.2s;
             margin-top: 10px;
         }
 
-        .submit-btn:hover {
-            background-color: #005bb5;
-        }
-
-        .submit-btn:disabled {
-            background-color: var(--text-muted);
-            cursor: not-allowed;
-            transform: none;
-        }
+        .submit-btn:hover { background-color: #005bb5; }
+        .submit-btn:disabled { background-color: var(--text-muted); cursor: not-allowed; }
 
         #status-message {
             margin-top: 20px;
@@ -142,81 +208,186 @@
             display: none;
         }
 
-        .status-loading {
-            background-color: #e3f2fd;
-            color: #0d47a1;
+        .status-loading { background-color: #e3f2fd; color: #0d47a1; }
+        .status-success { background-color: #e8f5e9; color: #1b5e20; }
+        .status-error { background-color: #ffebee; color: #c62828; }
+
+        /* Manage Content Styles */
+        .search-bar {
+            width: 100%;
+            padding: 12px 20px;
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+            outline: none;
         }
 
-        .status-success {
-            background-color: #e8f5e9;
-            color: #1b5e20;
+        .filters {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
         }
 
-        .status-error {
-            background-color: #ffebee;
-            color: #c62828;
+        .filter-btn {
+            border: 1px solid var(--border-color);
+            background: var(--card-bg);
+            padding: 6px 16px;
+            border-radius: 15px;
+            cursor: pointer;
         }
 
-        .nav-link {
-            display: block;
+        .filter-btn.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .app-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .app-list-item {
+            background: var(--card-bg);
+            padding: 15px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border: 1px solid var(--border-color);
+        }
+
+        .app-list-item img {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+
+        /* Profile View */
+        .profile-container {
             text-align: center;
-            margin-top: 20px;
-            color: var(--primary-color);
-            text-decoration: none;
-            font-weight: 500;
         }
-
-        .nav-link:hover {
-            text-decoration: underline;
+        
+        .profile-avatar {
+            width: 100px;
+            height: 100px;
+            background: var(--border-color);
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>Developer Dashboard</h1>
-        <p class="subtitle">Upload and publish new applications instantly</p>
-    </header>
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h2>Dev Center</h2>
+        </div>
+        <div class="nav-item active" data-target="upload-view">⬆️ Upload App</div>
+        <div class="nav-item" data-target="manage-view">📁 Manage Content</div>
+        <div class="nav-item" data-target="profile-view">👤 Profile</div>
+        <a href="index.html" class="store-link">← Back to Store</a>
+    </aside>
 
-    <main class="container">
-        <form id="upload-form">
-            <div class="form-group">
-                <label for="app-name">App Name</label>
-                <input type="text" id="app-name" placeholder="e.g., Banter Box" required>
+    <main class="main-content">
+        
+        <section id="upload-view" class="view-section active">
+            <header>
+                <h1>Upload New Build</h1>
+                <p class="subtitle">Publish your app, game, or book to the storefront.</p>
+            </header>
+
+            <div class="card">
+                <form id="upload-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="app-name">Title</label>
+                            <input type="text" id="app-name" placeholder="e.g., Banter Box" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="app-category">Category</label>
+                            <select id="app-category">
+                                <option value="apps">Apps</option>
+                                <option value="games">Games</option>
+                                <option value="books">Books</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="app-desc">Description</label>
+                        <textarea id="app-desc" placeholder="What does your project do?" required></textarea>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>App Icon (Image)</label>
+                            <div class="file-input-wrapper">
+                                <span id="icon-label">Select Image (PNG/JPG)</span>
+                                <input type="file" id="app-icon" accept="image/*" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>App File (APK, ZIP, PDF)</label>
+                            <div class="file-input-wrapper">
+                                <span id="file-label">Select App File</span>
+                                <input type="file" id="app-file" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" id="submit-btn" class="submit-btn">Upload & Publish</button>
+                </form>
+                <div id="status-message"></div>
+            </div>
+        </section>
+
+        <section id="manage-view" class="view-section">
+            <header>
+                <h1>Manage Content</h1>
+                <p class="subtitle">Search and view your published apps, games, and books.</p>
+            </header>
+            
+            <input type="text" class="search-bar" id="dev-search" placeholder="Search your uploads...">
+            
+            <div class="filters">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="apps">Apps</button>
+                <button class="filter-btn" data-filter="games">Games</button>
+                <button class="filter-btn" data-filter="books">Books</button>
             </div>
 
-            <div class="form-group">
-                <label for="app-icon">Icon (Emoji or Character)</label>
-                <input type="text" id="app-icon" placeholder="e.g., 💬" maxlength="4">
+            <div class="app-list" id="developer-app-list">
+                <div style="text-align:center; color: #86868b;">Loading your content...</div>
             </div>
+        </section>
 
-            <div class="form-group">
-                <label for="app-desc">Description</label>
-                <textarea id="app-desc" placeholder="What does your application do?" required></textarea>
+        <section id="profile-view" class="view-section">
+            <header>
+                <h1>Developer Profile</h1>
+            </header>
+            <div class="card profile-container">
+                <div class="profile-avatar">👨‍💻</div>
+                <h2>Studio Name</h2>
+                <p style="color: var(--text-muted); margin-bottom: 30px;">Developer ID: DEV-88321</p>
+                <button class="submit-btn" style="max-width: 200px; margin: 0 auto;">Edit Profile Settings</button>
             </div>
+        </section>
 
-            <div class="form-group">
-                <label>App File (APK, IPA, ZIP, etc.)</label>
-                <div class="file-input-wrapper">
-                    <span id="file-label">Drag & drop your file here or click to browse</span>
-                    <input type="file" id="app-file" required>
-                </div>
-            </div>
-
-            <button type="submit" id="submit-btn" class="submit-btn">Publish to App Store</button>
-        </form>
-
-        <div id="status-message"></div>
-
-        <a href="index.html" class="nav-link">← Go to App Store</a>
     </main>
 
     <script type="module">
-        // Import Firebase modules
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getDatabase, ref, push, set } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+        import { getDatabase, ref, push, set, onValue } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
-        // Your provided Firebase configuration
         const firebaseConfig = {
             apiKey: "AIzaSyD44NWaXEYqR8b_8x5YnAcRQXK44OhtWdA",
             authDomain: "app-store-c8510.firebaseapp.com",
@@ -227,112 +398,187 @@
             measurementId: "G-38J9DPWENY"
         };
 
-        // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
 
-        // Cloudinary Configuration
+        // Cloudinary Config
         const CLOUDINARY_CLOUD_NAME = "dqkujefxj"; 
         const UPLOAD_PRESET = "banter_box";
         const CLOUDINARY_URL = `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/upload`;
 
-        // DOM Elements
+        // Navigation Logic
+        const navItems = document.querySelectorAll('.nav-item');
+        const sections = document.querySelectorAll('.view-section');
+
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                navItems.forEach(n => n.classList.remove('active'));
+                sections.forEach(s => s.classList.remove('active'));
+                
+                item.classList.add('active');
+                document.getElementById(item.getAttribute('data-target')).classList.add('active');
+            });
+        });
+
+        // Form Logic
         const uploadForm = document.getElementById('upload-form');
+        const iconInput = document.getElementById('app-icon');
         const fileInput = document.getElementById('app-file');
+        const iconLabel = document.getElementById('icon-label');
         const fileLabel = document.getElementById('file-label');
         const submitBtn = document.getElementById('submit-btn');
         const statusMessage = document.getElementById('status-message');
 
-        // Update file input text when a file is chosen
-        fileInput.addEventListener('change', (e) => {
-            if(e.target.files.length > 0) {
-                fileLabel.textContent = `Selected: ${e.target.files[0].name}`;
-                fileLabel.style.fontWeight = '600';
-            } else {
-                fileLabel.textContent = 'Drag & drop your file here or click to browse';
-                fileLabel.style.fontWeight = 'normal';
-            }
+        iconInput.addEventListener('change', (e) => {
+            iconLabel.textContent = e.target.files.length > 0 ? e.target.files[0].name : 'Select Image (PNG/JPG)';
+            iconLabel.style.fontWeight = e.target.files.length > 0 ? '600' : 'normal';
         });
 
-        // Form submission handling
+        fileInput.addEventListener('change', (e) => {
+            fileLabel.textContent = e.target.files.length > 0 ? e.target.files[0].name : 'Select App File';
+            fileLabel.style.fontWeight = e.target.files.length > 0 ? '600' : 'normal';
+        });
+
+        // Cloudinary Upload Helper Function
+        async function uploadToCloudinary(file) {
+            const formData = new FormData();
+            formData.append('file', file);
+            formData.append('upload_preset', UPLOAD_PRESET);
+
+            const response = await fetch(CLOUDINARY_URL, {
+                method: 'POST',
+                body: formData
+            });
+
+            if (!response.ok) throw new Error('Cloudinary upload failed.');
+            const data = await response.json();
+            return data.secure_url;
+        }
+
         uploadForm.addEventListener('submit', async (e) => {
             e.preventDefault();
 
             const name = document.getElementById('app-name').value.trim();
-            const icon = document.getElementById('app-icon').value.trim() || '📱';
+            const category = document.getElementById('app-category').value;
             const description = document.getElementById('app-desc').value.trim();
-            const file = fileInput.files[0];
+            const iconFile = iconInput.files[0];
+            const appFile = fileInput.files[0];
 
-            if (!file) {
-                showStatus('Please select a file to upload.', 'error');
+            if (!iconFile || !appFile) {
+                showStatus('Please select both an Icon and an App File.', 'error');
                 return;
             }
 
-            // UI adjustments for the upload process
             submitBtn.disabled = true;
-            submitBtn.textContent = 'Uploading file...';
-            showStatus('Uploading your asset to Cloudinary...', 'loading');
+            submitBtn.textContent = 'Uploading files to Cloudinary...';
+            showStatus('Uploading assets... this may take a moment.', 'loading');
 
             try {
-                // 1. Prepare FormData for Cloudinary Unsigned Upload
-                const formData = new FormData();
-                formData.append('file', file);
-                formData.append('upload_preset', UPLOAD_PRESET);
+                // Upload both files simultaneously for speed
+                const [iconUrl, appUrl] = await Promise.all([
+                    uploadToCloudinary(iconFile),
+                    uploadToCloudinary(appFile)
+                ]);
 
-                // 2. Upload to Cloudinary via Fetch API
-                const cloudinaryResponse = await fetch(CLOUDINARY_URL, {
-                    method: 'POST',
-                    body: formData
-                });
-
-                if (!cloudinaryResponse.ok) {
-                    throw new Error('Cloudinary upload failed. Check preset or cloud name.');
-                }
-
-                const cloudinaryData = await cloudinaryResponse.json();
-                const downloadUrl = cloudinaryData.secure_url; // Direct download link from Cloudinary
-
-                // 3. Update Status and Push Data to Firebase Realtime Database
-                showStatus('Connecting to Realtime Database...', 'loading');
+                showStatus('Connecting to Database...', 'loading');
                 
                 const appsRef = ref(db, 'apps');
-                const newAppRef = push(appsRef); // Generate unique ID key
+                const newAppRef = push(appsRef); 
                 
                 await set(newAppRef, {
                     name: name,
-                    icon: icon,
+                    category: category,
+                    icon: iconUrl, // Storing Cloudinary Image URL instead of emoji
                     description: description,
-                    downloadUrl: downloadUrl
+                    downloadUrl: appUrl // Storing Cloudinary File URL
                 });
 
-                // Success Actions
-                showStatus('🎉 Application published successfully in real-time!', 'success');
+                showStatus('🎉 Published successfully!', 'success');
                 uploadForm.reset();
-                fileLabel.textContent = 'Drag & drop your file here or click to browse';
-                fileLabel.style.fontWeight = 'normal';
+                iconLabel.textContent = 'Select Image (PNG/JPG)';
+                fileLabel.textContent = 'Select App File';
 
             } catch (error) {
                 console.error("Upload process error: ", error);
                 showStatus(`Failed to upload: ${error.message}`, 'error');
             } finally {
                 submitBtn.disabled = false;
-                submitBtn.textContent = 'Publish to App Store';
+                submitBtn.textContent = 'Upload & Publish';
             }
         });
 
-        // Helper function to manage status UI text changes
         function showStatus(text, type) {
             statusMessage.textContent = text;
-            statusMessage.className = ''; // reset classes
+            statusMessage.className = '';
             statusMessage.style.display = 'block';
+            statusMessage.classList.add(`status-${type}`);
+        }
 
-            if (type === 'loading') {
-                statusMessage.classList.add('status-loading');
-            } else if (type === 'success') {
-                statusMessage.classList.add('status-success');
-            } else if (type === 'error') {
-                statusMessage.classList.add('status-error');
+        // Manage Content Logic
+        const appsRef = ref(db, 'apps');
+        const appListContainer = document.getElementById('developer-app-list');
+        const devSearch = document.getElementById('dev-search');
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        let allDevApps = [];
+        let currentFilter = 'all';
+
+        onValue(appsRef, (snapshot) => {
+            allDevApps = [];
+            const data = snapshot.val();
+            if (data) {
+                Object.keys(data).forEach(id => {
+                    allDevApps.push({ id, ...data[id] });
+                });
             }
+            renderDevList();
+        });
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                e.target.classList.add('active');
+                currentFilter = e.target.getAttribute('data-filter');
+                renderDevList();
+            });
+        });
+
+        devSearch.addEventListener('input', renderDevList);
+
+        function renderDevList() {
+            const query = devSearch.value.toLowerCase();
+            
+            const filtered = allDevApps.filter(app => {
+                const matchesFilter = currentFilter === 'all' || app.category === currentFilter;
+                const matchesSearch = app.name.toLowerCase().includes(query) || app.description.toLowerCase().includes(query);
+                return matchesFilter && matchesSearch;
+            });
+
+            appListContainer.innerHTML = '';
+
+            if (filtered.length === 0) {
+                appListContainer.innerHTML = '<div style="color: var(--text-muted); padding: 20px;">No uploads found.</div>';
+                return;
+            }
+
+            filtered.forEach(app => {
+                const el = document.createElement('div');
+                el.className = 'app-list-item';
+                
+                // Fallback for older apps that used an emoji string instead of an image URL
+                const iconContent = app.icon && app.icon.startsWith('http') 
+                    ? `<img src="${app.icon}" alt="icon">` 
+                    : `<div style="font-size: 2rem; width: 50px; text-align: center;">${app.icon || '📱'}</div>`;
+
+                el.innerHTML = `
+                    ${iconContent}
+                    <div style="flex-grow: 1;">
+                        <h3 style="margin: 0 0 5px; font-size: 1rem;">${app.name}</h3>
+                        <div style="font-size: 0.8rem; color: var(--primary-color); text-transform: uppercase;">${app.category || 'App'}</div>
+                    </div>
+                    <a href="${app.downloadUrl}" target="_blank" style="text-decoration: none; color: var(--text-muted); font-size: 0.9rem;">Verify Link ↗</a>
+                `;
+                appListContainer.appendChild(el);
+            });
         }
     </script>
 </body>
