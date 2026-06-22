@@ -30,281 +30,48 @@
             overflow: hidden;
         }
 
-        /* Sidebar Styles */
-        .sidebar {
-            width: 260px;
-            background-color: var(--sidebar-bg);
-            border-right: 1px solid var(--border-color);
-            display: flex;
-            flex-direction: column;
-            padding: 20px 0;
-            flex-shrink: 0;
-        }
+        .sidebar { width: 260px; background-color: var(--sidebar-bg); border-right: 1px solid var(--border-color); display: flex; flex-direction: column; padding: 20px 0; flex-shrink: 0; }
+        .sidebar-header { padding: 0 20px 20px; border-bottom: 1px solid var(--border-color); margin-bottom: 20px; }
+        .sidebar-header h2 { margin: 0; font-size: 1.5rem; color: var(--primary-color); }
+        .nav-item { padding: 12px 20px; cursor: pointer; font-weight: 500; color: var(--text-main); transition: background 0.2s; display: flex; align-items: center; gap: 10px; }
+        .nav-item:hover { background-color: var(--hover-bg); }
+        .nav-item.active { background-color: rgba(0, 122, 255, 0.1); color: var(--primary-color); border-right: 3px solid var(--primary-color); }
+        .store-link { margin-top: auto; text-decoration: none; color: var(--text-muted); padding: 15px 20px; font-weight: 500; }
+        .store-link:hover { color: var(--primary-color); }
 
-        .sidebar-header {
-            padding: 0 20px 20px;
-            border-bottom: 1px solid var(--border-color);
-            margin-bottom: 20px;
-        }
+        .main-content { flex-grow: 1; padding: 40px; overflow-y: auto; }
+        .view-section { display: none; max-width: 800px; margin: 0 auto; }
+        .view-section.active { display: block; }
+        header h1 { font-size: 2.2rem; margin: 0 0 5px 0; }
+        .subtitle { color: var(--text-muted); margin: 0 0 30px 0; }
 
-        .sidebar-header h2 {
-            margin: 0;
-            font-size: 1.5rem;
-            color: var(--primary-color);
-        }
-
-        .nav-item {
-            padding: 12px 20px;
-            cursor: pointer;
-            font-weight: 500;
-            color: var(--text-main);
-            transition: background 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .nav-item:hover {
-            background-color: var(--hover-bg);
-        }
-
-        .nav-item.active {
-            background-color: rgba(0, 122, 255, 0.1);
-            color: var(--primary-color);
-            border-right: 3px solid var(--primary-color);
-        }
-
-        .store-link {
-            margin-top: auto;
-            text-decoration: none;
-            color: var(--text-muted);
-            padding: 15px 20px;
-            font-weight: 500;
-        }
-
-        .store-link:hover {
-            color: var(--primary-color);
-        }
-
-        /* Main Content Styles */
-        .main-content {
-            flex-grow: 1;
-            padding: 40px;
-            overflow-y: auto;
-        }
-
-        .view-section {
-            display: none;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .view-section.active {
-            display: block;
-        }
-
-        header h1 {
-            font-size: 2.2rem;
-            margin: 0 0 5px 0;
-        }
-
-        .subtitle {
-            color: var(--text-muted);
-            margin: 0 0 30px 0;
-        }
-
-        /* Card Form */
-        .card {
-            background-color: var(--card-bg);
-            border-radius: 16px;
-            padding: 30px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-        }
-
-        .form-row {
-            display: flex;
-            gap: 20px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-            display: flex;
-            flex-direction: column;
-            flex: 1;
-        }
-
-        label {
-            font-weight: 600;
-            font-size: 0.95rem;
-            margin-bottom: 8px;
-        }
-
-        input[type="text"],
-        select,
-        textarea {
-            font-family: inherit;
-            font-size: 1rem;
-            padding: 12px;
-            border: 1px solid var(--border-color);
-            border-radius: 10px;
-            background-color: #fafafa;
-            transition: all 0.2s;
-        }
-
-        input[type="text"]:focus, select:focus, textarea:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 4px rgba(0, 122, 255, 0.1);
-            background-color: #fff;
-        }
-
-        textarea {
-            resize: vertical;
-            min-height: 100px;
-        }
-
-        .file-input-wrapper {
-            position: relative;
-            background: #fafafa;
-            border: 2px dashed var(--border-color);
-            border-radius: 10px;
-            padding: 20px;
-            text-align: center;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-
-        .file-input-wrapper:hover {
-            background: #f0f0f2;
-        }
-
-        .file-input-wrapper input[type="file"] {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            opacity: 0; cursor: pointer;
-        }
-
-        .submit-btn {
-            width: 100%;
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            border-radius: 12px;
-            padding: 14px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background-color 0.2s;
-            margin-top: 10px;
-        }
-
-        .submit-btn:hover { background-color: #005bb5; }
-        .submit-btn:disabled { background-color: var(--text-muted); cursor: not-allowed; }
-
-        /* Delete Button Style */
-        .delete-btn {
-            background-color: var(--danger-bg);
-            color: var(--danger-color);
-            border: 1px solid #ffcdd2;
-            padding: 6px 12px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-        .delete-btn:hover { background-color: #ffcdd2; }
-
-        #status-message {
-            margin-top: 20px;
-            padding: 12px;
-            border-radius: 8px;
-            text-align: center;
-            font-weight: 500;
-            display: none;
-        }
-
+        .card { background-color: var(--card-bg); border-radius: 16px; padding: 30px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); }
+        .form-row { display: flex; gap: 20px; }
+        .form-group { margin-bottom: 20px; display: flex; flex-direction: column; flex: 1; }
+        label { font-weight: 600; font-size: 0.95rem; margin-bottom: 8px; }
+        input[type="text"], select, textarea { font-family: inherit; font-size: 1rem; padding: 12px; border: 1px solid var(--border-color); border-radius: 10px; background-color: #fafafa; }
+        input[type="text"]:focus, select:focus, textarea:focus { outline: none; border-color: var(--primary-color); box-shadow: 0 0 0 4px rgba(0, 122, 255, 0.1); }
+        .file-input-wrapper { position: relative; background: #fafafa; border: 2px dashed var(--border-color); border-radius: 10px; padding: 20px; text-align: center; cursor: pointer; }
+        .file-input-wrapper input[type="file"] { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
+        
+        .submit-btn { width: 100%; background-color: var(--primary-color); color: white; border: none; border-radius: 12px; padding: 14px; font-weight: 600; cursor: pointer; margin-top: 10px; }
+        .delete-btn { background-color: var(--danger-bg); color: var(--danger-color); border: 1px solid #ffcdd2; padding: 6px 12px; border-radius: 8px; cursor: pointer; font-size: 0.8rem; font-weight: 600; }
+        
+        #status-message { margin-top: 20px; padding: 12px; border-radius: 8px; text-align: center; font-weight: 500; display: none; }
         .status-loading { background-color: #e3f2fd; color: #0d47a1; }
         .status-success { background-color: #e8f5e9; color: #1b5e20; }
         .status-error { background-color: #ffebee; color: #c62828; }
 
-        /* Manage Content Styles */
-        .search-bar {
-            width: 100%;
-            padding: 12px 20px;
-            border: 1px solid var(--border-color);
-            border-radius: 20px;
-            margin-bottom: 20px;
-            box-sizing: border-box;
-            outline: none;
-        }
-
-        .filters {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .filter-btn {
-            border: 1px solid var(--border-color);
-            background: var(--card-bg);
-            padding: 6px 16px;
-            border-radius: 15px;
-            cursor: pointer;
-        }
-
-        .filter-btn.active {
-            background: var(--primary-color);
-            color: white;
-            border-color: var(--primary-color);
-        }
-
-        .app-list {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .app-list-item {
-            background: var(--card-bg);
-            padding: 15px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            border: 1px solid var(--border-color);
-        }
-
-        .app-list-item img {
-            width: 50px;
-            height: 50px;
-            border-radius: 10px;
-            object-fit: cover;
-        }
-
-        /* Profile View */
-        .profile-container {
-            text-align: center;
-        }
-        
-        .profile-avatar {
-            width: 100px;
-            height: 100px;
-            background: var(--border-color);
-            border-radius: 50%;
-            margin: 0 auto 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-        }
+        .search-bar { width: 100%; padding: 12px 20px; border: 1px solid var(--border-color); border-radius: 20px; margin-bottom: 20px; box-sizing: border-box; }
+        .app-list { display: flex; flex-direction: column; gap: 15px; }
+        .app-list-item { background: var(--card-bg); padding: 15px; border-radius: 12px; display: flex; align-items: center; gap: 15px; border: 1px solid var(--border-color); }
+        .app-list-item img { width: 50px; height: 50px; border-radius: 10px; object-fit: cover; }
     </style>
 </head>
 <body>
 
     <aside class="sidebar">
-        <div class="sidebar-header">
-            <h2>Dev Center</h2>
-        </div>
+        <div class="sidebar-header"><h2>Dev Center</h2></div>
         <div class="nav-item" data-target="upload-view">⬆️ Upload App</div>
         <div class="nav-item" data-target="manage-view">📁 Manage Content</div>
         <div class="nav-item" data-target="profile-view">👤 Profile</div>
@@ -317,47 +84,17 @@
                 <h1>Upload New Build</h1>
                 <p class="subtitle">Publish your app, game, or book to the storefront.</p>
             </header>
-
             <div class="card">
                 <form id="upload-form">
                     <div class="form-row">
-                        <div class="form-group">
-                            <label for="app-name">Title</label>
-                            <input type="text" id="app-name" placeholder="e.g., Banter Box" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="app-category">Category</label>
-                            <select id="app-category">
-                                <option value="apps">Apps</option>
-                                <option value="games">Games</option>
-                                <option value="books">Books</option>
-                            </select>
-                        </div>
+                        <div class="form-group"><label>Title</label><input type="text" id="app-name" required></div>
+                        <div class="form-group"><label>Category</label><select id="app-category"><option value="apps">Apps</option><option value="games">Games</option><option value="books">Books</option></select></div>
                     </div>
-
-                    <div class="form-group">
-                        <label for="app-desc">Description</label>
-                        <textarea id="app-desc" placeholder="What does your project do?" required></textarea>
-                    </div>
-
+                    <div class="form-group"><label>Description</label><textarea id="app-desc" required></textarea></div>
                     <div class="form-row">
-                        <div class="form-group">
-                            <label>App Icon (Image)</label>
-                            <div class="file-input-wrapper">
-                                <span id="icon-label">Select Image (PNG/JPG)</span>
-                                <input type="file" id="app-icon" accept="image/*" required>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label>App File (APK, ZIP, PDF)</label>
-                            <div class="file-input-wrapper">
-                                <span id="file-label">Select App File</span>
-                                <input type="file" id="app-file" required>
-                            </div>
-                        </div>
+                        <div class="form-group"><label>App Icon</label><div class="file-input-wrapper"><span id="icon-label">Select Image</span><input type="file" id="app-icon" accept="image/*" required></div></div>
+                        <div class="form-group"><label>App File</label><div class="file-input-wrapper"><span id="file-label">Select File</span><input type="file" id="app-file" required></div></div>
                     </div>
-
                     <button type="submit" id="submit-btn" class="submit-btn">Upload & Publish</button>
                 </form>
                 <div id="status-message"></div>
@@ -365,35 +102,14 @@
         </section>
 
         <section id="manage-view" class="view-section">
-            <header>
-                <h1>Manage Content</h1>
-                <p class="subtitle">Search and view your published apps, games, and books.</p>
-            </header>
-            
+            <header><h1>Manage Content</h1></header>
             <input type="text" class="search-bar" id="dev-search" placeholder="Search your uploads...">
-            
-            <div class="filters">
-                <button class="filter-btn active" data-filter="all">All</button>
-                <button class="filter-btn" data-filter="apps">Apps</button>
-                <button class="filter-btn" data-filter="games">Games</button>
-                <button class="filter-btn" data-filter="books">Books</button>
-            </div>
-
-            <div class="app-list" id="developer-app-list">
-                <div style="text-align:center; color: #86868b;">Loading your content...</div>
-            </div>
+            <div class="app-list" id="developer-app-list">Loading...</div>
         </section>
 
         <section id="profile-view" class="view-section">
-            <header>
-                <h1>Developer Profile</h1>
-            </header>
-            <div class="card profile-container">
-                <div class="profile-avatar">👨‍💻</div>
-                <h2>Studio Name</h2>
-                <p style="color: var(--text-muted); margin-bottom: 30px;">Developer ID: DEV-88321</p>
-                <button class="submit-btn" style="max-width: 200px; margin: 0 auto;">Edit Profile Settings</button>
-            </div>
+            <header><h1>Developer Profile</h1></header>
+            <div class="card"><h2>Studio Name</h2><p>Developer ID: DEV-88321</p></div>
         </section>
     </main>
 
@@ -407,215 +123,98 @@
             projectId: "app-store-c8510",
             storageBucket: "app-store-c8510.firebasestorage.app",
             messagingSenderId: "13153104569",
-            appId: "1:13153104569:web:1ea598b6e165879c162168",
-            measurementId: "G-38J9DPWENY"
+            appId: "1:13153104569:web:1ea598b6e165879c162168"
         };
 
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
-
         const CLOUDINARY_CLOUD_NAME = "dqkujefxj"; 
         const UPLOAD_PRESET = "banter_box";
-        const CLOUDINARY_URL = `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/auto/upload`;
 
-        // Restore UI State
-        const navItems = document.querySelectorAll('.nav-item');
-        const sections = document.querySelectorAll('.view-section');
-        let activeDevView = localStorage.getItem('dev_activeView') || 'upload-view';
-
-        // Apply saved state on load
-        navItems.forEach(item => {
-            if (item.getAttribute('data-target') === activeDevView) {
-                item.classList.add('active');
-                document.getElementById(activeDevView).classList.add('active');
-            }
-        });
-
-        // Navigation Logic with LocalStorage saving
-        navItems.forEach(item => {
-            item.addEventListener('click', () => {
-                navItems.forEach(n => n.classList.remove('active'));
-                sections.forEach(s => s.classList.remove('active'));
-                
-                item.classList.add('active');
-                const targetView = item.getAttribute('data-target');
-                document.getElementById(targetView).classList.add('active');
-                
-                localStorage.setItem('dev_activeView', targetView);
-            });
-        });
-
-        // Form Logic
-        const uploadForm = document.getElementById('upload-form');
-        const iconInput = document.getElementById('app-icon');
-        const fileInput = document.getElementById('app-file');
-        const iconLabel = document.getElementById('icon-label');
-        const fileLabel = document.getElementById('file-label');
-        const submitBtn = document.getElementById('submit-btn');
-        const statusMessage = document.getElementById('status-message');
-
-        iconInput.addEventListener('change', (e) => {
-            iconLabel.textContent = e.target.files.length > 0 ? e.target.files[0].name : 'Select Image (PNG/JPG)';
-            iconLabel.style.fontWeight = e.target.files.length > 0 ? '600' : 'normal';
-        });
-
-        fileInput.addEventListener('change', (e) => {
-            fileLabel.textContent = e.target.files.length > 0 ? e.target.files[0].name : 'Select App File';
-            fileLabel.style.fontWeight = e.target.files.length > 0 ? '600' : 'normal';
-        });
-
+        // --- UPLOAD LOGIC WITH DYNAMIC RESOURCE TYPE ---
         async function uploadToCloudinary(file) {
             const formData = new FormData();
             formData.append('file', file);
             formData.append('upload_preset', UPLOAD_PRESET);
 
-            const response = await fetch(CLOUDINARY_URL, {
-                method: 'POST',
-                body: formData
-            });
+            // Determine if it's an image or a raw file (PDF, ZIP, APK, etc.)
+            const isImage = file.type.startsWith('image/');
+            const resourceType = isImage ? 'image' : 'raw';
+            const url = `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/${resourceType}/upload`;
 
-            if (!response.ok) throw new Error('Cloudinary upload failed.');
+            const response = await fetch(url, { method: 'POST', body: formData });
+            
+            if (!response.ok) {
+                const errorData = await response.json();
+                console.error("Cloudinary Error:", errorData);
+                throw new Error(errorData.error.message || 'Upload failed');
+            }
             const data = await response.json();
             return data.secure_url;
         }
 
+        // --- FORM SUBMISSION ---
+        const uploadForm = document.getElementById('upload-form');
         uploadForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-
-            const name = document.getElementById('app-name').value.trim();
-            const category = document.getElementById('app-category').value;
-            const description = document.getElementById('app-desc').value.trim();
-            const iconFile = iconInput.files[0];
-            const appFile = fileInput.files[0];
-
-            if (!iconFile || !appFile) {
-                showStatus('Please select both an Icon and an App File.', 'error');
-                return;
-            }
-
+            const submitBtn = document.getElementById('submit-btn');
+            const iconInput = document.getElementById('app-icon').files[0];
+            const fileInput = document.getElementById('app-file').files[0];
+            
             submitBtn.disabled = true;
-            submitBtn.textContent = 'Uploading files to Cloudinary...';
-            showStatus('Uploading assets... this may take a moment.', 'loading');
+            submitBtn.textContent = 'Uploading...';
 
             try {
                 const [iconUrl, appUrl] = await Promise.all([
-                    uploadToCloudinary(iconFile),
-                    uploadToCloudinary(appFile)
+                    uploadToCloudinary(iconInput),
+                    uploadToCloudinary(fileInput)
                 ]);
 
-                showStatus('Connecting to Database...', 'loading');
-                
-                const appsRef = ref(db, 'apps');
-                const newAppRef = push(appsRef); 
-                
-                await set(newAppRef, {
-                    name: name,
-                    category: category,
-                    icon: iconUrl, 
-                    description: description,
-                    downloadUrl: appUrl 
+                await set(push(ref(db, 'apps')), {
+                    name: document.getElementById('app-name').value,
+                    category: document.getElementById('app-category').value,
+                    icon: iconUrl,
+                    downloadUrl: appUrl
                 });
 
-                showStatus('🎉 Published successfully!', 'success');
+                alert('Published successfully!');
                 uploadForm.reset();
-                iconLabel.textContent = 'Select Image (PNG/JPG)';
-                fileLabel.textContent = 'Select App File';
-                iconLabel.style.fontWeight = 'normal';
-                fileLabel.style.fontWeight = 'normal';
-
             } catch (error) {
-                console.error("Upload process error: ", error);
-                showStatus(`Failed to upload: ${error.message}`, 'error');
+                alert("Error: " + error.message);
             } finally {
                 submitBtn.disabled = false;
                 submitBtn.textContent = 'Upload & Publish';
             }
         });
 
-        function showStatus(text, type) {
-            statusMessage.textContent = text;
-            statusMessage.className = '';
-            statusMessage.style.display = 'block';
-            statusMessage.classList.add(`status-${type}`);
-        }
-
-        // Manage Content Logic (Real-time reading from DB)
+        // --- MANAGE CONTENT LOGIC ---
         const appsRef = ref(db, 'apps');
         const appListContainer = document.getElementById('developer-app-list');
-        const devSearch = document.getElementById('dev-search');
-        const filterBtns = document.querySelectorAll('.filter-btn');
-        let allDevApps = [];
-        let currentFilter = 'all';
 
         onValue(appsRef, (snapshot) => {
-            allDevApps = [];
             const data = snapshot.val();
-            if (data) {
-                Object.keys(data).forEach(id => {
-                    allDevApps.push({ id, ...data[id] });
-                });
-            }
-            renderDevList();
-        });
-
-        filterBtns.forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                filterBtns.forEach(b => b.classList.remove('active'));
-                e.target.classList.add('active');
-                currentFilter = e.target.getAttribute('data-filter');
-                renderDevList();
-            });
-        });
-
-        devSearch.addEventListener('input', renderDevList);
-
-        function renderDevList() {
-            const query = devSearch.value.toLowerCase();
-            
-            const filtered = allDevApps.filter(app => {
-                const matchesFilter = currentFilter === 'all' || app.category === currentFilter;
-                const matchesSearch = app.name.toLowerCase().includes(query) || app.description.toLowerCase().includes(query);
-                return matchesFilter && matchesSearch;
-            });
-
             appListContainer.innerHTML = '';
-
-            if (filtered.length === 0) {
-                appListContainer.innerHTML = '<div style="color: var(--text-muted); padding: 20px;">No uploads found.</div>';
-                return;
-            }
-
-            filtered.forEach(app => {
+            if (!data) { appListContainer.innerHTML = 'No apps found.'; return; }
+            
+            Object.keys(data).forEach(id => {
+                const appData = data[id];
                 const el = document.createElement('div');
                 el.className = 'app-list-item';
-                
-                const iconContent = app.icon && app.icon.startsWith('http') 
-                    ? `<img src="${app.icon}" alt="icon">` 
-                    : `<div style="font-size: 2rem; width: 50px; text-align: center;">${app.icon || '📱'}</div>`;
-
                 el.innerHTML = `
-                    ${iconContent}
-                    <div style="flex-grow: 1;">
-                        <h3 style="margin: 0 0 5px; font-size: 1rem;">${app.name}</h3>
-                        <div style="font-size: 0.8rem; color: var(--primary-color); text-transform: uppercase;">${app.category || 'App'}</div>
-                    </div>
-                    <a href="${app.downloadUrl}" target="_blank" style="text-decoration: none; color: var(--text-muted); font-size: 0.9rem; margin-right: 15px;">Verify ↗</a>
-                    <button class="delete-btn" data-id="${app.id}">Delete</button>
+                    <img src="${appData.icon}" width="50">
+                    <div style="flex-grow:1"><h3>${appData.name}</h3></div>
+                    <a href="${appData.downloadUrl}" target="_blank">Download</a>
+                    <button class="delete-btn" data-id="${id}">Delete</button>
                 `;
                 appListContainer.appendChild(el);
             });
 
-            // Bind Delete Logic
             document.querySelectorAll('.delete-btn').forEach(btn => {
                 btn.addEventListener('click', (e) => {
-                    const appId = e.target.getAttribute('data-id');
-                    if (confirm('Are you sure you want to delete this app?')) {
-                        remove(ref(db, 'apps/' + appId))
-                            .catch(err => alert("Error deleting: " + err.message));
-                    }
+                    if (confirm('Delete this app?')) remove(ref(db, 'apps/' + e.target.getAttribute('data-id')));
                 });
             });
-        }
+        });
     </script>
 </body>
 </html>
