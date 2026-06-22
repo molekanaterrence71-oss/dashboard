@@ -290,15 +290,14 @@
         <div class="sidebar-header">
             <h2>Dev Center</h2>
         </div>
-        <div class="nav-item active" data-target="upload-view">⬆️ Upload App</div>
+        <div class="nav-item" data-target="upload-view">⬆️ Upload App</div>
         <div class="nav-item" data-target="manage-view">📁 Manage Content</div>
         <div class="nav-item" data-target="profile-view">👤 Profile</div>
         <a href="index.html" class="store-link">← Back to Store</a>
     </aside>
 
     <main class="main-content">
-        
-        <section id="upload-view" class="view-section active">
+        <section id="upload-view" class="view-section">
             <header>
                 <h1>Upload New Build</h1>
                 <p class="subtitle">Publish your app, game, or book to the storefront.</p>
@@ -381,7 +380,6 @@
                 <button class="submit-btn" style="max-width: 200px; margin: 0 auto;">Edit Profile Settings</button>
             </div>
         </section>
-
     </main>
 
     <script type="module">
@@ -401,22 +399,35 @@
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
 
-        // Cloudinary Config
         const CLOUDINARY_CLOUD_NAME = "dqkujefxj"; 
         const UPLOAD_PRESET = "banter_box";
         const CLOUDINARY_URL = `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/upload`;
 
-        // Navigation Logic
+        // Restore UI State
         const navItems = document.querySelectorAll('.nav-item');
         const sections = document.querySelectorAll('.view-section');
+        let activeDevView = localStorage.getItem('dev_activeView') || 'upload-view';
 
+        // Apply saved state on load
+        navItems.forEach(item => {
+            if (item.getAttribute('data-target') === activeDevView) {
+                item.classList.add('active');
+                document.getElementById(activeDevView).classList.add('active');
+            }
+        });
+
+        // Navigation Logic with LocalStorage saving
         navItems.forEach(item => {
             item.addEventListener('click', () => {
                 navItems.forEach(n => n.classList.remove('active'));
                 sections.forEach(s => s.classList.remove('active'));
                 
                 item.classList.add('active');
-                document.getElementById(item.getAttribute('data-target')).classList.add('active');
+                const targetView = item.getAttribute('data-target');
+                document.getElementById(targetView).classList.add('active');
+                
+                // Save state to local storage
+                localStorage.setItem('dev_activeView', targetView);
             });
         });
 
@@ -439,7 +450,6 @@
             fileLabel.style.fontWeight = e.target.files.length > 0 ? '600' : 'normal';
         });
 
-        // Cloudinary Upload Helper Function
         async function uploadToCloudinary(file) {
             const formData = new FormData();
             formData.append('file', file);
@@ -474,7 +484,6 @@
             showStatus('Uploading assets... this may take a moment.', 'loading');
 
             try {
-                // Upload both files simultaneously for speed
                 const [iconUrl, appUrl] = await Promise.all([
                     uploadToCloudinary(iconFile),
                     uploadToCloudinary(appFile)
@@ -485,18 +494,21 @@
                 const appsRef = ref(db, 'apps');
                 const newAppRef = push(appsRef); 
                 
+                // Saving data to Realtime database -> THIS is what makes your data persist.
                 await set(newAppRef, {
                     name: name,
                     category: category,
-                    icon: iconUrl, // Storing Cloudinary Image URL instead of emoji
+                    icon: iconUrl, 
                     description: description,
-                    downloadUrl: appUrl // Storing Cloudinary File URL
+                    downloadUrl: appUrl 
                 });
 
                 showStatus('🎉 Published successfully!', 'success');
                 uploadForm.reset();
                 iconLabel.textContent = 'Select Image (PNG/JPG)';
                 fileLabel.textContent = 'Select App File';
+                iconLabel.style.fontWeight = 'normal';
+                fileLabel.style.fontWeight = 'normal';
 
             } catch (error) {
                 console.error("Upload process error: ", error);
@@ -514,7 +526,7 @@
             statusMessage.classList.add(`status-${type}`);
         }
 
-        // Manage Content Logic
+        // Manage Content Logic (Real-time reading from DB)
         const appsRef = ref(db, 'apps');
         const appListContainer = document.getElementById('developer-app-list');
         const devSearch = document.getElementById('dev-search');
@@ -564,7 +576,6 @@
                 const el = document.createElement('div');
                 el.className = 'app-list-item';
                 
-                // Fallback for older apps that used an emoji string instead of an image URL
                 const iconContent = app.icon && app.icon.startsWith('http') 
                     ? `<img src="${app.icon}" alt="icon">` 
                     : `<div style="font-size: 2rem; width: 50px; text-align: center;">${app.icon || '📱'}</div>`;
